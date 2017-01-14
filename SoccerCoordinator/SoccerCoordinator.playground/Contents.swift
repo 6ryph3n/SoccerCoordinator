@@ -20,8 +20,6 @@ var players: [String: (heightInInches: Int, hasExperience: Bool, parentNames: St
     "Herschel Kristofski": (45, true, "Hyman and Rachel Krustofski", "none")
 ]
 
-players["Joe Smith"]?.team
-
 // Separate experienced and inexperienced players into distinct arrays
 var experiencedPlayers: [String] = []
 var inexperiencedPlayers: [String] = []
@@ -35,24 +33,25 @@ for player in players {
     }
     }
 
-experiencedPlayers
-inexperiencedPlayers
-
 // Create the team arrays for the players to be divided into
 var teamSharks: [String] = []
 var teamDragons: [String] = []
 var teamRaptors: [String] = []
-var experienceGrouping: [String] = []
+
+var experienceGrouping: [String] = [] // This line creates an empty array for the dividePlayers function to utilize
+
+////////////////////////Function Begins///////////////////////////////////
 func dividePlayers(experienced: Bool) {
+    // This if statement allows the user to specify which group of players is being sorted
     if (experienced == true) {
         experienceGrouping = (experiencedPlayers)
     } else {
         experienceGrouping = (inexperiencedPlayers)
     }
     
-let playersCount = experienceGrouping.count // Create an index of the experienced players
+let playersCount = experienceGrouping.count // Create an index of each group of players
 
-// Divide the experienced players evenly by using the modulo operator on each player's index number
+// Divide the experienced and inexperienced players evenly by using the modulo operator on each player's index number
 for playerIndex in (0...(playersCount - 1)) {
     let currentPlayerName = experienceGrouping[playerIndex]
     
@@ -69,25 +68,19 @@ for playerIndex in (0...(playersCount - 1)) {
 }
 
 }
+////////////////////////Function Ends///////////////////////////////////
 
-dividePlayers(experienced: true)
-dividePlayers(experienced: false)
-
-teamSharks
-teamDragons
-teamRaptors
-
-
+dividePlayers(experienced: true) // Calls the function to assign the experienced players
+dividePlayers(experienced: false) // Calls the function to assign the inexperienced players
 
 // Specify the first practice time for each team
-
 let teamPractices: [String: String] = [
     "Sharks": "March 17 at 3PM",
     "Dragons": "March 17 at 1PM",
     "Raptors": "March 18 at 1PM"
 ]
 
-// Write a letter to the parents with all of their personal information
+// Write a letter to the guardians with all of their child's personal information
 for child in players {
     var letters: [String] = []
     letters.append("Dear \(players[child.key]!.parentNames), we are excited to welcome \(child.key) to the \(players[child.key]!.team)! Your first practice will be \(teamPractices["\(players[child.key]!.team)"]!).")
